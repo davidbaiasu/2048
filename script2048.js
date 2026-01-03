@@ -36,6 +36,8 @@ window.addEventListener('keydown', (event) => {
 		return;
 	}
 	
+	spawnNewCell(tableValues);
+	
 });
 
 function initGame(){
@@ -47,10 +49,8 @@ function initGame(){
 		[0, 0, 0, 0],
 	];
 	
-	let x = randomEmptyPosition(tableValues);
-	tableValues[x[0]][x[1]] = 2;
-	x = randomEmptyPosition(tableValues);
-	tableValues[x[0]][x[1]] = 2;
+	spawnNewCell(tableValues);
+	spawnNewCell(tableValues);
 	
 	prevTableValues = tableValues;
 	
@@ -95,6 +95,14 @@ function randomEmptyPosition(matrix){
 	
 	const randomIndex = Math.floor(Math.random() * zeros.length);
 	return zeros[randomIndex];
+	
+}
+
+function spawnNewCell(tableValues){
+	
+	let x = randomEmptyPosition(tableValues);
+	tableValues[x[0]][x[1]] = 2;
+	updateHTMLTable(tableValues);
 	
 }
 
