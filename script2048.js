@@ -18,8 +18,23 @@ window.addEventListener('keydown', (event) => {
 	
 	event.preventDefault();
 	
-	
-	
+	if( event.key === 'ArrowUp' ){
+		console.log("Sus");
+	}
+	else if( event.key === 'ArrowRight' ){
+		console.log("Dreapta");
+	}
+	else if( event.key === 'ArrowDown' ){
+		console.log("Jos");
+	}
+	else if( event.key === 'ArrowLeft' ){
+		console.log("Stanga");
+		slideLeft(tableValues);
+		updateHTMLTable(tableValues);
+	}
+	else{
+		return;
+	}
 	
 });
 
@@ -94,5 +109,46 @@ function moveHappened(tableValues, prevTableValues){
 	}
 	
 	return false;
+	
+}
+
+function slideLeft(tableValues){
+	
+	let zeroFiltered, numCount = 0;
+	
+	for( let r = 0; r < ROWS; r++ ){
+		
+		// remove zeros;
+		
+		zeroFiltered = tableValues[r].filter(num => num !== 0);
+		
+		// merge adjacent;
+		
+		for( let c = 0; c < zeroFiltered.length - 1; c++ ){
+				
+			if( zeroFiltered[c] === zeroFiltered[c+1] ){
+				
+				zeroFiltered[c] *= 2;
+				zeroFiltered[c+1] = 0;
+				
+			}
+			
+		}
+		
+		// move zeros to the end of array
+		
+		zeroFiltered = zeroFiltered.filter(num => num !== 0);
+		
+		while( zeroFiltered.length < COLS ){
+			zeroFiltered.push(0);
+		}
+		
+		//move back to tableValues
+		
+		tableValues[r] = zeroFiltered;
+		
+	}
+	
+	console.log(tableValues);
 	
 }
