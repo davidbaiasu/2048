@@ -1,7 +1,27 @@
 const ROWS = 4;
 const COLS = 4;
 
+const table = document.getElementById('id_table');
+
 let tableValues;
+let prevTableValues;
+
+window.onload = () => {
+	
+	//table.focus();
+	initGame();
+	
+	
+};
+
+window.addEventListener('keydown', (event) => {
+	
+	event.preventDefault();
+	
+	
+	
+	
+});
 
 function initGame(){
 	
@@ -16,6 +36,10 @@ function initGame(){
 	tableValues[x[0]][x[1]] = 2;
 	x = randomEmptyPosition(tableValues);
 	tableValues[x[0]][x[1]] = 2;
+	
+	prevTableValues = tableValues;
+	
+	console.log(prevTableValues);
 	console.log(tableValues);
 	updateHTMLTable(tableValues);
 	
@@ -59,4 +83,16 @@ function randomEmptyPosition(matrix){
 	
 }
 
-initGame();
+function moveHappened(tableValues, prevTableValues){
+	// true - move happened, false - move didn't do anything
+	for( let r = 0; r < ROWS; r++ ){
+		for( let c = 0; c < COLS; c++ ){
+			if( tableValues[r][c] !== prevTableValues[r][c] ){
+				return true;
+			}
+		}			
+	}
+	
+	return false;
+	
+}
