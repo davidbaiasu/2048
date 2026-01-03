@@ -42,7 +42,6 @@ window.addEventListener('keydown', (event) => {
 	if( moveHappened(tableValues, prevTableValues) === true ){
 		
 		spawnNewCell(tableValues);
-		updateHTMLTable(tableValues);
 		
 	}
 	else{
@@ -68,10 +67,6 @@ function initGame(){
 	spawnNewCell(tableValues);
 	
 	gameOver = false;
-	
-	//prevTableValues = tableValues;
-	
-	updateHTMLTable(tableValues);
 	
 }
 
@@ -216,16 +211,6 @@ function flipTable(tableValues){
 	
 }
 
-function slideRight(tableValues){
-	
-	flipTable(tableValues);
-	
-	slideLeft(tableValues);
-	
-	flipTable(tableValues);
-	
-}
-
 function transposeTable(tableValues){
 	
 	for( let r = 0; r < ROWS; r++ ){
@@ -234,6 +219,14 @@ function transposeTable(tableValues){
 			[tableValues[c][r], tableValues[r][c]]
 		}
 	}
+	
+}
+
+function slideRight(tableValues){
+	
+	flipTable(tableValues);
+	slideLeft(tableValues);
+	flipTable(tableValues);
 	
 }
 
