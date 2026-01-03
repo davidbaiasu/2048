@@ -3,11 +3,13 @@ const COLS = 4;
 
 const tableElement = document.getElementById('id_table');
 const scoreElement = document.getElementById('id_score_span');
+const highScoreElement = document.getElementById('id_high_score_span');
 
 let tableValues;
 let prevTableValues;
 let gameOver;
 let score;
+let highScore;
 
 window.onload = () => {
 	
@@ -70,7 +72,17 @@ function initGame(){
 	spawnNewCell(tableValues);
 	
 	gameOver = false;
+	
+	if( highScore === undefined ){
+		highScore = 0;
+	}
+	else{
+		highScore = Math.max(highScore, score);
+	}
+	
 	score = 0;
+	scoreElement.innerText = score;
+	highScoreElement.innerHTML = highScore;
 	
 }
 

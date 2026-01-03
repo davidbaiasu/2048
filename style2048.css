@@ -7,6 +7,10 @@
 		
 }
 
+#id_button_reset{
+	font-size: 30px;
+}
+
 #id_main{
 	display: flex;
 	flex-direction: column;
