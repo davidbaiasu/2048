@@ -23,6 +23,8 @@ window.addEventListener('keydown', (event) => {
 	}
 	else if( event.key === 'ArrowRight' ){
 		console.log("Dreapta");
+		slideRight(tableValues);
+		updateHTMLTable(tableValues);
 	}
 	else if( event.key === 'ArrowDown' ){
 		console.log("Jos");
@@ -158,5 +160,27 @@ function slideLeft(tableValues){
 	}
 	
 	console.log(tableValues);
+	
+}
+
+function flipTable(tableValues){
+		
+	for( let r = 0; r < ROWS; r++ ){
+		for( let c = 0; c < Math.floor(COLS / 2); c++ ){
+			[tableValues[r][c], tableValues[r][COLS - c - 1]] = 
+			[tableValues[r][COLS - c - 1], tableValues[r][c]];
+		}
+		
+	}
+	
+}
+
+function slideRight(tableValues){
+	
+	flipTable(tableValues);
+	
+	slideLeft(tableValues);
+	
+	flipTable(tableValues);
 	
 }
