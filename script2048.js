@@ -6,6 +6,7 @@ const table = document.getElementById('id_table');
 let tableValues;
 let prevTableValues;
 let gameOver;
+let score;
 
 window.onload = () => {
 	
@@ -67,6 +68,7 @@ function initGame(){
 	spawnNewCell(tableValues);
 	
 	gameOver = false;
+	score = 0;
 	
 }
 
