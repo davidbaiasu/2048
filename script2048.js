@@ -5,6 +5,7 @@ const table = document.getElementById('id_table');
 
 let tableValues;
 let prevTableValues;
+let gameOver;
 
 window.onload = () => {
 	
@@ -13,6 +14,10 @@ window.onload = () => {
 };
 
 window.addEventListener('keydown', (event) => {
+	
+	if(gameOver === true){
+		return;
+	}
 	
 	event.preventDefault();
 	
@@ -40,6 +45,13 @@ window.addEventListener('keydown', (event) => {
 		updateHTMLTable(tableValues);
 		
 	}
+	else{
+		
+		gameOver = checkGameOver(tableValues);
+		if( gameOver === true ){
+			console.log("Gata");
+		}
+	}
 	
 });
 
@@ -54,6 +66,8 @@ function initGame(){
 	
 	spawnNewCell(tableValues);
 	spawnNewCell(tableValues);
+	
+	gameOver = false;
 	
 	//prevTableValues = tableValues;
 	
@@ -118,6 +132,36 @@ function moveHappened(tableValues, prevTableValues){
 	}
 	
 	return false;
+	
+}
+
+function checkGameOver(tableValues){
+	
+	for( let r = 0; r < ROWS; r++ ){
+        for( let c = 0; c < COLS; c++ ){
+            if( tableValues[r][c] === 0 ){
+				return false;
+			}
+        }
+    }
+	
+	for( let r = 0; r < ROWS; r++ ){
+        for( let c = 0; c < COLS - 1; c++ ){
+            if( tableValues[r][c] === tableValues[r][c + 1] ){
+				return false;
+			}
+        }
+    }
+	
+	for( let c = 0; c < COLS; c++){
+        for( let r = 0; r < ROWS - 1; r++ ){
+            if( tableValues[r][c] === tableValues[r + 1][c] ){
+				return false;
+			}
+        }
+    }
+	
+	return true;
 	
 }
 
