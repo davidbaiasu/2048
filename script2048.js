@@ -8,9 +8,7 @@ let prevTableValues;
 
 window.onload = () => {
 	
-	//table.focus();
-	initGame();
-	
+	initGame();	
 	
 };
 
@@ -18,27 +16,30 @@ window.addEventListener('keydown', (event) => {
 	
 	event.preventDefault();
 	
+	prevTableValues = tableValues.map(row => [...row]);
+	
 	if( event.key === 'ArrowUp' ){
-		console.log("Sus");
+		slideUp(tableValues);
 	}
 	else if( event.key === 'ArrowRight' ){
-		console.log("Dreapta");
 		slideRight(tableValues);
-		updateHTMLTable(tableValues);
 	}
 	else if( event.key === 'ArrowDown' ){
-		console.log("Jos");
+		slideDown(tableValues);
 	}
 	else if( event.key === 'ArrowLeft' ){
-		console.log("Stanga");
 		slideLeft(tableValues);
-		updateHTMLTable(tableValues);
 	}
 	else{
 		return;
 	}
 	
-	spawnNewCell(tableValues);
+	if( moveHappened(tableValues, prevTableValues) === true ){
+		
+		spawnNewCell(tableValues);
+		updateHTMLTable(tableValues);
+		
+	}
 	
 });
 
@@ -54,10 +55,8 @@ function initGame(){
 	spawnNewCell(tableValues);
 	spawnNewCell(tableValues);
 	
-	prevTableValues = tableValues;
+	//prevTableValues = tableValues;
 	
-	console.log(prevTableValues);
-	console.log(tableValues);
 	updateHTMLTable(tableValues);
 	
 }
@@ -159,8 +158,6 @@ function slideLeft(tableValues){
 		
 	}
 	
-	console.log(tableValues);
-	
 }
 
 function flipTable(tableValues){
@@ -182,5 +179,34 @@ function slideRight(tableValues){
 	slideLeft(tableValues);
 	
 	flipTable(tableValues);
+	
+}
+
+function transposeTable(tableValues){
+	
+	for( let r = 0; r < ROWS; r++ ){
+		for( let c = 0; c < r; c++ ){
+			[tableValues[r][c], tableValues[c][r]] =
+			[tableValues[c][r], tableValues[r][c]]
+		}
+	}
+	
+}
+
+function slideUp(tableValues){
+	
+	transposeTable(tableValues);
+	slideLeft(tableValues);
+	transposeTable(tableValues);
+	
+}
+
+function slideDown(tableValues){
+	
+	transposeTable(tableValues);
+	flipTable(tableValues);
+	slideLeft(tableValues);
+	flipTable(tableValues);
+	transposeTable(tableValues);
 	
 }
