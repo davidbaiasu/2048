@@ -1,12 +1,24 @@
 const ROWS = 4;
 const COLS = 4;
 
-let tableValues = [
-	[0, 0, 0, 0],
-	[0, 0, 0, 0],
-	[0, 0, 0, 0],
-	[0, 0, 0, 0],
-];
+let tableValues;
+
+function initGame(){
+	
+	tableValues = [
+		[0, 0, 0, 0],
+		[0, 0, 0, 0],
+		[0, 0, 0, 0],
+		[0, 0, 0, 0],
+	];
+	
+	let x = randomEmptyPosition(tableValues);
+	tableValues[x[0]][x[1]] = 2;
+	x = randomEmptyPosition(tableValues);
+	tableValues[x[0]][x[1]] = 2;
+	console.log(tableValues);
+	
+}
 
 function randomEmptyPosition(matrix){
 
@@ -30,5 +42,5 @@ function randomEmptyPosition(matrix){
 	
 }
 
-const x = randomEmptyPosition(tableValues);
-console.log(x);
+
+initGame();
