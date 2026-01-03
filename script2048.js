@@ -17,6 +17,23 @@ function initGame(){
 	x = randomEmptyPosition(tableValues);
 	tableValues[x[0]][x[1]] = 2;
 	console.log(tableValues);
+	updateHTMLTable(tableValues);
+	
+}
+
+function updateHTMLTable(matrix){
+
+	for( let r = 0; r < ROWS; r++ ){
+		for( let c = 0; c < COLS; c++ ){
+			
+			const cellID = `id_table_cell_${r}_${c}`;
+			const cellElement = document.getElementById(cellID);
+			
+			const value = matrix[r][c];
+			cellElement.textContent = value === 0 ? 0 : value;// replace 0 with "" later
+			
+		}
+	}
 	
 }
 
@@ -41,6 +58,5 @@ function randomEmptyPosition(matrix){
 	return zeros[randomIndex];
 	
 }
-
 
 initGame();
