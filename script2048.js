@@ -1,7 +1,8 @@
 const ROWS = 4;
 const COLS = 4;
 
-const table = document.getElementById('id_table');
+const tableElement = document.getElementById('id_table');
+const scoreElement = document.getElementById('id_score_span');
 
 let tableValues;
 let prevTableValues;
@@ -42,6 +43,7 @@ window.addEventListener('keydown', (event) => {
 	
 	if( moveHappened(tableValues, prevTableValues) === true ){
 		
+		scoreElement.innerText = score;
 		spawnNewCell(tableValues);
 		
 	}
@@ -85,6 +87,10 @@ function updateHTMLTable(matrix){
 			
 		}
 	}
+	
+}
+
+function updateScore(score){
 	
 }
 
@@ -180,6 +186,7 @@ function slideLeft(tableValues){
 				
 				zeroFiltered[c] *= 2;
 				zeroFiltered[c+1] = 0;
+				score += zeroFiltered[c];
 				
 			}
 			
@@ -249,3 +256,14 @@ function slideDown(tableValues){
 	transposeTable(tableValues);
 	
 }
+
+
+/* TO-DO:
+	- score
+	- highscore
+	- reset Button
+	- undo Button ?
+	
+	- color cells w/ classes
+	- other css stuff
+*/
