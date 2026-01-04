@@ -5,6 +5,21 @@ const tableElement = document.getElementById('id_table');
 const scoreElement = document.getElementById('id_score_span');
 const highScoreElement = document.getElementById('id_high_score_span');
 
+const colorPallete = {
+	0:    "#FFFFFF",
+	2:    "#FFFFD4",
+	4:    "#FEEB9D",
+	8:    "#FDCB6E",
+	16:   "#FB9A3C",
+	32:   "#F36221",
+	64:   "#E12C21",
+	128:  "#BF0035",
+	256:  "#8F0052",
+	512:  "#5F006A",
+	1024: "#32005A",
+	2048: "#0B0033"
+};
+
 let tableValues;
 let prevTableValues;
 let gameOver;
@@ -47,6 +62,7 @@ window.addEventListener('keydown', (event) => {
 		
 		scoreElement.innerText = score;
 		spawnNewCell(tableValues);
+		updateCellColors(tableValues);
 		
 	}
 	else{
@@ -84,6 +100,8 @@ function initGame(){
 	scoreElement.innerText = score;
 	highScoreElement.innerHTML = highScore;
 	
+	updateCellColors(tableValues);
+	
 }
 
 function updateHTMLTable(matrix){
@@ -102,17 +120,28 @@ function updateHTMLTable(matrix){
 	
 }
 
-function updateScore(score){
+function updateCellColors(tableValues){
+	
+	for( let r = 0; r < ROWS; r++ ){
+		for( let c = 0; c < COLS; c++ ){
+			
+			const cellID = `id_table_cell_${r}_${c}`;
+			const cellElement = document.getElementById(cellID);
+			
+			cellElement.style.backgroundColor = colorPallete[tableValues[r][c]];
+			
+		}
+	}
 	
 }
 
-function randomEmptyPosition(matrix){
+function randomEmptyPosition(tableValues){
 
 	const zeros = [];
 	
 	for( let r = 0; r < ROWS; r++ ){	
 		for( let c = 0; c < COLS; c++ ){
-			if( matrix[r][c] === 0 ){
+			if( tableValues[r][c] === 0 ){
 				zeros.push([r, c]);
 			}
 		}	
@@ -271,8 +300,7 @@ function slideDown(tableValues){
 
 
 /* TO-DO:
-	- score
-	- highscore
+
 	- reset Button
 	- undo Button ?
 	
