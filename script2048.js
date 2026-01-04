@@ -26,6 +26,9 @@ let gameOver;
 let score;
 let highScore;
 
+let lastMoveScores = [];
+let lastBoardStates = [];
+
 window.onload = () => {
 	
 	initGame();	
@@ -60,6 +63,7 @@ window.addEventListener('keydown', (event) => {
 	
 	if( moveHappened(tableValues, prevTableValues) === true ){
 		
+		lastBoardStates
 		scoreElement.innerText = score;
 		spawnNewCell(tableValues);
 		updateCellColors(tableValues);
@@ -99,12 +103,13 @@ function initGame(){
 	score = 0;
 	scoreElement.innerText = score;
 	highScoreElement.innerHTML = highScore;
+	lastMoveScores = [];
 	
 	updateCellColors(tableValues);
 	
 }
 
-function updateHTMLTable(matrix){
+function updateHTMLTable(tableValues){
 
 	for( let r = 0; r < ROWS; r++ ){
 		for( let c = 0; c < COLS; c++ ){
@@ -112,11 +117,30 @@ function updateHTMLTable(matrix){
 			const cellID = `id_table_cell_${r}_${c}`;
 			const cellElement = document.getElementById(cellID);
 			
-			const value = matrix[r][c];
+			const value = tableValues[r][c];
 			cellElement.textContent = value === 0 ? 0 : value;// replace 0 with "" later
 			
 		}
 	}
+	
+}
+
+function undoMove(){
+	
+	if( lastMoveScores.length <= 0 || lastBoardStates.length > 3 || gameOver === true ){
+		return;
+	}
+	
+	tableValues = prevTableValues.map(row => [...row]);
+	
+	
+	
+	updateHTMLTable(tableValues);
+	updateCellColors(tableValues);
+	
+	score -= lastMoveScores.pop();
+	scoreElement.innerText = score;
+	
 	
 }
 
@@ -212,6 +236,7 @@ function checkGameOver(tableValues){
 function slideLeft(tableValues){
 	
 	let zeroFiltered, numCount = 0;
+	let currScore = 0;
 	
 	for( let r = 0; r < ROWS; r++ ){
 		
@@ -228,6 +253,8 @@ function slideLeft(tableValues){
 				zeroFiltered[c] *= 2;
 				zeroFiltered[c+1] = 0;
 				score += zeroFiltered[c];
+				
+				currScore += zeroFiltered[c];
 				
 			}
 			
@@ -246,6 +273,9 @@ function slideLeft(tableValues){
 		tableValues[r] = zeroFiltered;
 		
 	}
+	
+	lastMoveScores.push(currScore);
+	console.log(lastMoveScores);
 	
 }
 

@@ -7,7 +7,7 @@
 		
 }
 
-#id_button_reset{
+#id_button_reset, #id_button_undo{
 	font-size: 30px;
 }
 
@@ -24,7 +24,7 @@
     justify-content: space-between;
     align-items: flex-end;
     width: 100%;
-    max-width: 400px;
+    max-width: 420px;
     margin-bottom: 20px;
 }
 
