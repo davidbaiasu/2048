@@ -118,7 +118,7 @@ function updateHTMLTable(tableValues){
 			const cellElement = document.getElementById(cellID);
 			
 			const value = tableValues[r][c];
-			cellElement.textContent = value === 0 ? 0 : value;// replace 0 with "" later
+			cellElement.textContent = value === 0 ? " " : value;
 			
 		}
 	}

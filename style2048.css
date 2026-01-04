@@ -1,9 +1,15 @@
+body{
+	font-family: 'Inter', sans-serif;
+}
+
 .cell{
 	width: 100px;
 	height: 100px;
 	border: 2px solid;
 	text-align: center;
 	font-size: 50px;
+	
+	transition: background-color 0.3s ease, transform 0.2s ease-in-out;
 		
 }
 
