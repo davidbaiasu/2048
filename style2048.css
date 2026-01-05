@@ -5,7 +5,7 @@ body{
 .cell{
 	width: 100px;
 	height: 100px;
-	border: 2px solid;
+	border: 3px solid;
 	text-align: center;
 	font-size: 50px;
 	
@@ -13,8 +13,30 @@ body{
 		
 }
 
-#id_button_reset, #id_button_undo{
+.buttons{
 	font-size: 30px;
+	background-color: #F7F2C5;
+	text-align: center;
+	font-weight: bold;
+	
+	flex: 1;
+	cursor: pointer;
+	transition: background 0.2s, transform 0.1s;
+}
+.buttons:hover {
+    background-color: #FBC02D;
+}
+.buttons:active {
+    transform: scale(0.80);
+}
+
+#id_div_buttons{
+	display: flex;
+	justify-content: center;
+	gap: 15px;
+	width: 100%;
+	margin-top: 10px;
+	margin-bottom: 10px;
 }
 
 #id_main{
@@ -22,6 +44,9 @@ body{
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
+	
+	background-color: lightyellow;
+	width: 500px;
 }
 
 #id_game_header{
@@ -31,7 +56,9 @@ body{
     align-items: flex-end;
     width: 100%;
     max-width: 420px;
-    margin-bottom: 20px;
+	
+    margin-bottom: 5px;
+	margin-top: 5px;
 }
 
 #id_game_title{

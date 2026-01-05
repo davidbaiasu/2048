@@ -6,18 +6,19 @@ const scoreElement = document.getElementById('id_score_span');
 const highScoreElement = document.getElementById('id_high_score_span');
 
 const colorPallete = {
-	0:    "#FFFFFF",
-	2:    "#FFFFD4",
-	4:    "#FEEB9D",
-	8:    "#FDCB6E",
-	16:   "#FB9A3C",
-	32:   "#F36221",
-	64:   "#E12C21",
-	128:  "#BF0035",
-	256:  "#8F0052",
-	512:  "#5F006A",
-	1024: "#32005A",
-	2048: "#0B0033"
+    0:    "#E0E0D5",
+    2:    "#F7F2C5",
+    4:    "#F2E8A0",
+    8:    "#FFF59D",
+    16:   "#FFF176",
+    32:   "#FFEB3B",
+    64:   "#FBC02D",
+    128:  "#F9A825",
+    256:  "#F57F17",
+    512:  "#E65100",
+    1024: "#BF360C",
+    2048: "#8D6E63",
+    4096: "#5D4037"
 };
 
 let tableValues;
@@ -338,8 +339,6 @@ function slideDown(tableValues){
 
 
 /* TO-DO:
-
-	- undo Button & board state( last 3 )
 	
 	- other css stuff
 */
