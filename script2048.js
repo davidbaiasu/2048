@@ -43,7 +43,8 @@ window.addEventListener('keydown', (event) => {
 	
 	event.preventDefault();
 	
-	prevTableValues = tableValues.map(row => [...row]);
+	const boardSnapshot = tableValues.map(row => [...row]);
+	const scoreBeforeMove = score;
 	
 	if( event.key === 'ArrowUp' ){
 		slideUp(tableValues);
@@ -61,14 +62,23 @@ window.addEventListener('keydown', (event) => {
 		return;
 	}
 	
-	if( moveHappened(tableValues, prevTableValues) === true ){
+	if( moveHappened(tableValues, boardSnapshot) === true ){
 		
-		lastBoardStates
+		if( lastBoardStates.length === 3 ){
+			lastBoardStates.shift();
+			lastMoveScores.shift();
+		}
+		
+		lastBoardStates.push(boardSnapshot);
+		lastMoveScores.push(score - scoreBeforeMove);
+		
 		scoreElement.innerText = score;
 		spawnNewCell(tableValues);
+		updateHTMLTable(tableValues);
 		updateCellColors(tableValues);
 		
 	}
+	
 	else{
 		
 		gameOver = checkGameOver(tableValues);
@@ -104,6 +114,7 @@ function initGame(){
 	scoreElement.innerText = score;
 	highScoreElement.innerHTML = highScore;
 	lastMoveScores = [];
+	lastBoardStates = [];
 	
 	updateCellColors(tableValues);
 	
@@ -127,20 +138,19 @@ function updateHTMLTable(tableValues){
 
 function undoMove(){
 	
-	if( lastMoveScores.length <= 0 || lastBoardStates.length > 3 || gameOver === true ){
+	if( lastMoveScores.length <= 0 || lastBoardStates.length <= 0 || gameOver === true ){
 		return;
 	}
 	
-	tableValues = prevTableValues.map(row => [...row]);
+	//tableValues = prevTableValues.map(row => [...row]);
 	
-	
+	tableValues = lastBoardStates.pop();
 	
 	updateHTMLTable(tableValues);
 	updateCellColors(tableValues);
 	
 	score -= lastMoveScores.pop();
 	scoreElement.innerText = score;
-	
 	
 }
 
@@ -274,9 +284,6 @@ function slideLeft(tableValues){
 		
 	}
 	
-	lastMoveScores.push(currScore);
-	console.log(lastMoveScores);
-	
 }
 
 function flipTable(tableValues){
@@ -331,9 +338,7 @@ function slideDown(tableValues){
 
 /* TO-DO:
 
-	- reset Button
-	- undo Button ?
+	- undo Button & board state( last 3 )
 	
-	- color cells w/ classes
 	- other css stuff
 */
