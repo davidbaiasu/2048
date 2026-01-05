@@ -1,5 +1,9 @@
 body{
 	font-family: 'Inter', sans-serif;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 0;
 }
 
 .cell{
@@ -83,4 +87,23 @@ body{
 	margin: 0;
 	font-size: 22px;
 	white-space: nowrap;
+}
+
+#id_game_footer{
+	background-color: #F2E8A0;
+	font-size: 0.95rem;
+	border: 15px solid lightyellow;
+	border-bottom: 10px solid lightyellow;
+}
+
+#id_game_footer h3{
+	text-align: center;
+	margin-bottom: 0;
+}
+
+#id_game_footer p{
+	text-align: justify;
+	margin-top: 0;
+	padding-left: 10px;
+	padding-right: 10px;
 }
