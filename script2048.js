@@ -74,7 +74,6 @@ window.addEventListener('keydown', (event) => {
 		
 		scoreElement.innerText = score;
 		spawnNewCell(tableValues);
-		updateHTMLTable(tableValues);
 		updateCellColors(tableValues);
 		
 	}
@@ -194,7 +193,9 @@ function randomEmptyPosition(tableValues){
 function spawnNewCell(tableValues){
 	
 	let x = randomEmptyPosition(tableValues);
-	tableValues[x[0]][x[1]] = 2;
+	const randNumber = Math.floor(Math.random() * 10) + 1;
+	
+	tableValues[x[0]][x[1]] = randNumber != 10 ? 2 : 4;
 	updateHTMLTable(tableValues);
 	
 }
