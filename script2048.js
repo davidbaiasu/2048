@@ -26,6 +26,7 @@ let prevTableValues;
 let gameOver;
 let score;
 let highScore;
+let undoLastMoved;
 
 let lastMoveScores = [];
 let lastBoardStates = [];
@@ -77,6 +78,12 @@ window.addEventListener('keydown', (event) => {
 		spawnNewCell(tableValues);
 		updateCellColors(tableValues);
 		
+		if( undoLastMoved === true ){
+			lastBoardStates = [];
+			lastMoveScores = [];
+			undoLastMoved = false;
+		}
+		
 	}
 	
 	else{
@@ -115,6 +122,7 @@ function initGame(){
 	highScoreElement.innerHTML = highScore;
 	lastMoveScores = [];
 	lastBoardStates = [];
+	undoLastMoved = false;
 	
 	updateCellColors(tableValues);
 	
@@ -151,6 +159,8 @@ function undoMove(){
 	
 	score -= lastMoveScores.pop();
 	scoreElement.innerText = score;
+	
+	undoLastMoved = true;
 	
 }
 
