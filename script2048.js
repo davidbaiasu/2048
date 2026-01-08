@@ -4,6 +4,8 @@ const COLS = 4;
 const tableElement = document.getElementById('id_table');
 const scoreElement = document.getElementById('id_score_span');
 const highScoreElement = document.getElementById('id_high_score_span');
+const resetButtonElement = document.getElementById('id_button_reset');
+const undoButtonElement = document.getElementById('id_button_undo');
 
 const colorPallete = {
     0:    "#E0E0D5",
@@ -90,6 +92,7 @@ window.addEventListener('keydown', (event) => {
 		
 		gameOver = checkGameOver(tableValues);
 		if( gameOver === true ){
+			resetButtonElement.style.backgroundColor = "#F9A825";
 			console.log("Gata");
 		}
 	}
@@ -125,6 +128,7 @@ function initGame(){
 	undoLastMoved = false;
 	
 	updateCellColors(tableValues);
+	resetButtonElement.style.backgroundColor = '#F7F2C5';
 	
 }
 
@@ -149,8 +153,6 @@ function undoMove(){
 	if( lastMoveScores.length <= 0 || lastBoardStates.length <= 0 || gameOver === true ){
 		return;
 	}
-	
-	//tableValues = prevTableValues.map(row => [...row]);
 	
 	tableValues = lastBoardStates.pop();
 	
@@ -255,6 +257,31 @@ function checkGameOver(tableValues){
 	
 }
 
+// Slide functions 
+
+function flipTable(tableValues){
+		
+	for( let r = 0; r < ROWS; r++ ){
+		for( let c = 0; c < Math.floor(COLS / 2); c++ ){
+			[tableValues[r][c], tableValues[r][COLS - c - 1]] = 
+			[tableValues[r][COLS - c - 1], tableValues[r][c]];
+		}
+		
+	}
+	
+}
+
+function transposeTable(tableValues){
+	
+	for( let r = 0; r < ROWS; r++ ){
+		for( let c = 0; c < r; c++ ){
+			[tableValues[r][c], tableValues[c][r]] =
+			[tableValues[c][r], tableValues[r][c]]
+		}
+	}
+	
+}
+
 function slideLeft(tableValues){
 	
 	let zeroFiltered, numCount = 0;
@@ -298,29 +325,6 @@ function slideLeft(tableValues){
 	
 }
 
-function flipTable(tableValues){
-		
-	for( let r = 0; r < ROWS; r++ ){
-		for( let c = 0; c < Math.floor(COLS / 2); c++ ){
-			[tableValues[r][c], tableValues[r][COLS - c - 1]] = 
-			[tableValues[r][COLS - c - 1], tableValues[r][c]];
-		}
-		
-	}
-	
-}
-
-function transposeTable(tableValues){
-	
-	for( let r = 0; r < ROWS; r++ ){
-		for( let c = 0; c < r; c++ ){
-			[tableValues[r][c], tableValues[c][r]] =
-			[tableValues[c][r], tableValues[r][c]]
-		}
-	}
-	
-}
-
 function slideRight(tableValues){
 	
 	flipTable(tableValues);
@@ -346,9 +350,3 @@ function slideDown(tableValues){
 	transposeTable(tableValues);
 	
 }
-
-
-/* TO-DO:
-	
-	- other css stuff
-*/
